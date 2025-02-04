@@ -111,11 +111,12 @@ Options:
   --mc-type <type>                  Type of the main component.
                                     (choices: "application", "firmware", "library", default: "application")
   -w --workspace <workspace...>     Whether to only include dependencies for specific workspaces.
+                                    This feature is experimental. (default: empty)
                                     (can be set multiple times)
-                                    (default: empty)
   --include-workspace-root          Include the workspace root when workspaces are defined using "-w" or "--workspace".
-                                    (default: false)
+                                    This feature is experimental. (default: false)
   --no-workspaces                   Do not include dependencies for workspaces.
+                                    This feature is experimental. (default: false)
   -v, --verbose                     Increase the verbosity of messages.
                                     Use multiple times to increase the verbosity even more.
   -V, --version                     output the version number

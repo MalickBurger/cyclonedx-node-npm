@@ -94,17 +94,20 @@ function makeCommand (process: NodeJS.Process): Command {
     new Option(
       '-w, --workspace <workspace...>',
       'Whether to only include dependencies for a specific workspace. ' +
-      '(can be set multiple times)'
+      '(can be set multiple times)\n' +
+      'This feature is experimental.'
     ).default([], 'empty')
   ).addOption(
     new Option(
       '--no-workspaces',
-      'Do not include dependencies for workspaces.'
+      'Do not include dependencies for workspaces.\n' +
+      'This feature is experimental.'
     )
   ).addOption(
     new Option(
       '--include-workspace-root',
-      'Include the workspace root when workspaces are defined using `-w` or `--workspace`.'
+      'Include the workspace root when workspaces are defined using `-w` or `--workspace`.\n' +
+      'This feature is experimental.'
     ).default(false)
   ).addOption(
     new Option(
