@@ -89,12 +89,12 @@ describe('integration.cli.args-pass-through', () => {
       ['workspace root npm 11', `11.${rMinor}.${rPatch}`, ['--workspace', 'my-wsA', '-w', 'my-wsB', '--include-workspace-root'], [...npm11ArgsGeneral, '--workspace=my-wsA', '--workspace=my-wsB', '--include-workspace-root=true']],
       // endregion include-workspace-root
       // region workspaces
-      ['workspaces disabled not supported npm 6', `6.${rMinor}.${rPatch}`, ['--no-workspaces'], [...npm6ArgsGeneral]],
-      ['workspaces disabled npm 7', `7.${rMinor}.${rPatch}`, ['--no-workspaces'], [...npm7ArgsGeneral, '--workspaces=false']],
-      ['workspaces disabled npm 8', `8.${rMinor}.${rPatch}`, ['--no-workspaces'], [...npm8ArgsGeneral, '--workspaces=false']],
-      ['workspaces disabled npm 9', `9.${rMinor}.${rPatch}`, ['--no-workspaces'], [...npm9ArgsGeneral, '--workspaces=false']],
-      ['workspaces disabled npm 10', `10.${rMinor}.${rPatch}`, ['--no-workspaces'], [...npm10ArgsGeneral, '--workspaces=false']],
-      ['workspaces disabled npm 11', `11.${rMinor}.${rPatch}`, ['--no-workspaces'], [...npm11ArgsGeneral, '--workspaces=false']]
+      ['workspaces not supported npm 6', `6.${rMinor}.${rPatch}`, ['--workspaces'], [...npm6ArgsGeneral]],
+      ['workspaces npm 7', `7.${rMinor}.${rPatch}`, ['--no-workspaces'], [...npm7ArgsGeneral, '--workspaces=false']],
+      ['workspaces npm 8', `8.${rMinor}.${rPatch}`, ['--workspaces'], [...npm8ArgsGeneral, '--workspaces=true']],
+      ['workspaces npm 9', `9.${rMinor}.${rPatch}`, ['--no-workspaces'], [...npm9ArgsGeneral, '--workspaces=false']],
+      ['workspaces npm 10', `10.${rMinor}.${rPatch}`, ['--workspaces'], [...npm10ArgsGeneral, '--workspaces=true']],
+      ['workspaces npm 11', `11.${rMinor}.${rPatch}`, ['--no-workspaces'], [...npm11ArgsGeneral, '--workspaces=false']]
       // endregion workspaces
     ])('%s', async (purpose, npmVersion, cdxArgs, expectedArgs) => {
       const logFileBase = join(tmpRootRun, purpose.replace(/\W/g, '_'))

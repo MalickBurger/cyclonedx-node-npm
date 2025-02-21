@@ -113,10 +113,15 @@ Options:
   -w --workspace <workspace...>     Whether to only include dependencies for specific workspaces.
                                     This feature is experimental. (default: empty)
                                     (can be set multiple times)
-  --include-workspace-root          Include the workspace root when workspaces are defined using "-w" or "--workspace".
+  --include-workspace-root          Include the workspace root when workspaces are defined using "-w" or "--workspace"; or if "--workspaces" is configured.
                                     This feature is experimental. (default: false)
-  --no-workspaces                   Do not include dependencies for workspaces.
-                                    This feature is experimental. (default: false)
+  -ws --workspaces                  Whether to include dependencies for workspaces.
+                                    Default behaviour for NPM 7 is to not include workspace dependencies but for NPM > 7 the default behaviour is to
+                                    include them. Default behaviour also includes workspace root dependencies (--include-workspace-root) but if explicitly enabled then this is not the case (disabled by default).
+                                    If explicitly enabled an error will occur if there are no configured workspaces.
+                                    This feature is experimental. (default: null)
+  --no-workspaces                   Whether to exclude dependencies for workspaces.
+                                    This feature is experimental.
   -v, --verbose                     Increase the verbosity of messages.
                                     Use multiple times to increase the verbosity even more.
   -V, --version                     output the version number

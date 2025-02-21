@@ -99,14 +99,24 @@ function makeCommand (process: NodeJS.Process): Command {
     ).default([], 'empty')
   ).addOption(
     new Option(
+      '-ws, --workspaces',
+      'Whether to include dependencies for workspaces.\n' +
+      'Default behaviour for NPM 7 is to not include workspace dependencies but for NPM > 7 the default behaviour is to include them.\n' +
+      'Default behaviour includes workspace root dependencies (--include-workspace-root) ' +
+      'but if explicitly enabled then this is not the case (disabled by default).\n' +
+      'If explicitly enabled an error will occur if there are no configured workspaces.\n' +
+      'This feature is experimental.'
+    ).default(undefined)
+  ).addOption(
+    new Option(
       '--no-workspaces',
-      'Do not include dependencies for workspaces.\n' +
+      'Whether to exclude dependencies for workspaces.\n' +
       'This feature is experimental.'
     )
   ).addOption(
     new Option(
       '--include-workspace-root',
-      'Include the workspace root when workspaces are defined using `-w` or `--workspace`.\n' +
+      'Include the workspace root when workspaces are defined using `-w` or `--workspace`; or if `--workspaces` is configured.\n' +
       'This feature is experimental.'
     ).default(false)
   ).addOption(
@@ -260,7 +270,7 @@ export async function run (process: NodeJS.Process): Promise<number> {
     throw new Error('missing evidence')
   }
 
-  if (options.workspaces !== undefined && !options.workspaces) {
+  if (options.workspaces === false) {
     if (options.workspace !== undefined && options.workspace.length > 0) {
       myConsole.error('ERROR | Bad config: `--workspace` option cannot be used when `--no-workspaces` is also configured')
       throw new Error('bad config')
@@ -268,8 +278,8 @@ export async function run (process: NodeJS.Process): Promise<number> {
   }
 
   if (options.includeWorkspaceRoot) {
-    if (options.workspace.length === 0) {
-      myConsole.error('ERROR | Bad config: `--include-workspace-root` can only be used when `--workspace` is also configured')
+    if (options.workspace.length === 0 && options.workspaces !== true) {
+      myConsole.error('ERROR | Bad config: `--include-workspace-root` can only be used when `--workspace` or `--workspaces` is also configured')
       throw new Error('bad config')
     }
   }

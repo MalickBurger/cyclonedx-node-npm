@@ -69,7 +69,7 @@ export class BomBuilder {
   gatherLicenseTexts: boolean
   workspace: string[]
   includeWorkspaceRoot: boolean
-  workspaces: boolean
+  workspaces?: boolean
 
   console: Console
 
@@ -94,7 +94,7 @@ export class BomBuilder {
     this.gatherLicenseTexts = options.gatherLicenseTexts ?? false
     this.workspace = options.workspace ?? []
     this.includeWorkspaceRoot = options.includeWorkspaceRoot ?? false
-    this.workspaces = options.workspaces ?? true
+    this.workspaces = options.workspaces
 
     this.console = console_
   }
@@ -198,12 +198,11 @@ export class BomBuilder {
       }
     }
 
-    // No need to set explicitly if true as this is default behaviour
-    if (!this.workspaces) {
+    if (this.workspaces != null) {
       if (npmVersionT[0] >= 7) {
-        args.push('--workspaces=false')
+        args.push(`--workspaces=${this.workspaces}`)
       } else {
-        this.console.warn('WARN  | your NPM does not support "--workspaces=false", internally skipped this option')
+        this.console.warn('WARN  | your NPM does not support "--workspaces=%s", internally skipped this option', this.workspaces)
       }
     }
 
